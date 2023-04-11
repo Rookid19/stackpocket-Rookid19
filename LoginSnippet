@@ -1,0 +1,20 @@
+  const [checkBox, setCheckBox] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(
+    localStorage.getItem("checked") === "true"
+  );
+
+  const Login = () => {
+    if (checkBox) {
+      localStorage.setItem("checked", "true");
+    } else {
+      localStorage.setItem("checked", "false");
+    }
+  };
+  
+  useEffect(() => {
+    if (checked) {
+      // navigate to dashboard
+    } else {
+      // navigate to login
+    }
+  }, []);
