@@ -1,0 +1,323 @@
+import { createTrackJson, generateSelectOptions } from "@/functions/cartTruck";
+import {
+  filterSelections,
+  gameData,
+  getDate,
+  getTime,
+  truncateEllipsis,
+  userSelections,
+} from "@/functions/msc";
+import { GameData, TrackState } from "@/interfaces/reducer";
+import React, { CSSProperties, memo, useEffect, useState } from "react";
+
+interface trackC {
+  bet: GameData;
+  trackState: TrackState;
+  trackDispatch: any;
+  cartState?: any;
+}
+
+//
+function Track({ cartState, bet, trackState, trackDispatch }: trackC) {
+  const [tab, setTab] = useState(1);
+  const [defaultTrackDraws, setDefaultTrackDraws] = useState<any>(10);
+  const [firstMultiplier, setFirstMultiplier] = useState<number>(1);
+  const [multiplyAfterEvery, setMultiplyAfterEvery] = useState<number>(1);
+  const [multiplyBy, setMultiplyBy] = useState<number>(1);
+  const [selectFirstDraw, setSelectFirstDraw] = useState<string>("");
+
+  let drawData = {
+    betId: "202304271117",
+    drawDatetime: "2023-04-27 19:36:00",
+    drawNumber: [8, 7, 4, 1, 0],
+    timeLeft: 34,
+    nextBetId: "202304271118",
+    nextDrawDatetime: "2023-04-27 19:36:00",
+  };
+
+  let trackData = createTrackJson(
+    drawData.drawDatetime,
+    drawData.nextBetId,
+    defaultTrackDraws,
+    firstMultiplier,
+    multiplyAfterEvery,
+    multiplyBy,
+    bet.totalBetAmt,
+    1
+  );
+
+  useEffect(() => {
+    console.log(
+      "create track ",
+      createTrackJson(
+        drawData.drawDatetime,
+        drawData.nextBetId,
+        defaultTrackDraws,
+        firstMultiplier,
+        multiplyAfterEvery,
+        multiplyBy,
+        bet.totalBetAmt,
+        1
+      )
+    );
+  }, []);
+
+  const trackBet = (items: GameData) => {
+    trackDispatch({
+      type: "TRACK_BET",
+      payload: Array(items),
+    });
+  };
+
+  const trackCart = () => {
+    const obj = cartState.items;
+    trackDispatch({
+      type: "TRACK_BET",
+      payload: Object.keys(obj).map((key) => obj[key]),
+    });
+  };
+
+  const handleTrackDrawChange = (event: any) => {
+    let inputValue = event.target.value;
+    setDefaultTrackDraws(inputValue);
+
+    if (inputValue < 1) {
+      setDefaultTrackDraws("");
+    } else if (inputValue > 120) {
+      setDefaultTrackDraws(120);
+    } else {
+      setDefaultTrackDraws(inputValue);
+    }
+  };
+
+  const handleMultiplierChange = (event: any) => {
+    setFirstMultiplier(event.target.value);
+  };
+
+  const handleMultiplyAfterEveryChange = (event: any) => {
+    setMultiplyAfterEvery(event.target.value);
+  };
+
+  const handleMultiplyByChange = (event: any) => {
+    setMultiplyBy(event.target.value);
+  };
+
+  const a = () => {
+    console.log(
+      "generateSelectOptions",
+      generateSelectOptions(drawData.betId, drawData.drawDatetime)
+    );
+  };
+
+  return (
+    <div>
+      <button onClick={a}>Test</button>
+      <button onClick={() => trackBet({ ...bet, uid: 1 })}>Track</button>
+      <button onClick={() => trackCart()}>Track CART</button>
+
+      <table style={tableStyle as CSSProperties}>
+        <thead>
+          <tr>
+            <th style={thStyle as CSSProperties}>No</th>
+            <th style={thStyle as CSSProperties}>Type</th>
+            <th style={thStyle as CSSProperties}>Detail</th>
+            <th style={thStyle as CSSProperties}>Bets</th>
+            <th style={thStyle as CSSProperties}>Unit</th>
+            <th style={thStyle as CSSProperties}>Bet Amt. ()</th>
+          </tr>
+        </thead>
+        <tbody>
+          {trackState.map(
+            (
+              {
+                gameType,
+                userSelections,
+                totalBets,
+                unitStaked,
+                totalBetAmt,
+              }: GameData,
+              index: number
+            ) => (
+              <tr key={index}>
+                <td style={tdStyle as CSSProperties}>{index + 1}</td>
+                <td style={tdStyle as CSSProperties}>{gameType}</td>
+                <td style={tdStyle as CSSProperties}>
+                  {userSelections && truncateEllipsis(userSelections)}
+                </td>
+                <td style={tdStyle as CSSProperties}>{totalBets}</td>
+                <td style={tdStyle as CSSProperties}>{unitStaked}</td>
+                <td style={tdStyle as CSSProperties}>{totalBetAmt}</td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <h2 onClick={() => setTab(1)}>Track Number</h2>{" "}
+        <h2 onClick={() => setTab(2)}>Profit margin chasing margin</h2>
+      </div>
+      {tab === 1 ? (
+        <>
+          <h3>{selectFirstDraw}</h3>
+          <span>
+            <span>
+              First draw:
+              <select onChange={(e) => setSelectFirstDraw(e.target.value)}>
+                {generateSelectOptions(
+                  drawData.betId,
+                  drawData.drawDatetime
+                ).map(({ currentBetId,idDateTime }, index) => (
+                  <option
+                  data-date-to-start={getDate(idDateTime) + " " +getTime(idDateTime)
+        }
+                  value={currentBetId} key={index}>
+                    {currentBetId} {index === 0 ? "Current" : ""}
+                  </option>
+                ))}
+              </select>
+            </span>
+
+            <span>
+              Track draw
+              <input
+                type="number"
+                value={defaultTrackDraws}
+                onChange={(event) => handleTrackDrawChange(event)}
+                min={1}
+                max={120}
+                onKeyDown={(event) =>
+                  event.key === "-" && event.preventDefault()
+                }
+              />{" "}
+              draws (Maximum track 120 draws)
+            </span>
+          </span>
+          <br />
+          <br />
+
+          <span>
+            <span>
+              First Mult.:
+              <input
+                type="number"
+                onChange={(event) => handleMultiplierChange(event)}
+                value={firstMultiplier}
+              />
+            </span>
+            <span>
+              Every.:
+              <input
+                type="number"
+                onChange={(event) => handleMultiplyAfterEveryChange(event)}
+                value={multiplyAfterEvery}
+              />{" "}
+              draws(s)
+            </span>{" "}
+            <span>
+              Mult.x
+              <input
+                type="number"
+                onChange={(event) => handleMultiplyByChange(event)}
+                value={multiplyBy}
+              />
+            </span>
+          </span>
+          <br />
+          <br />
+          <div>
+            <table style={tableStyle as CSSProperties}>
+              <thead>
+                <tr>
+                  <th style={thStyle as CSSProperties}>Track No.</th>
+                  <th style={thStyle as CSSProperties}>Track ID.</th>
+                  <th style={thStyle as CSSProperties}>Multi</th>
+                  <th style={thStyle as CSSProperties}>Bet Amount</th>
+                  <th style={thStyle as CSSProperties}>Estimate draw time</th>
+                </tr>
+              </thead>
+
+              {/* 2nd table  */}
+              <tbody>
+                {trackData.bets.map(
+                  (
+                    {
+                      betAmt,
+                      betId,
+                      current,
+                      estimatedDrawTime,
+                      multiplier,
+                      nextDay,
+                      trackNo,
+                    },
+                    index: number
+                  ) => (
+                    <tr key={index}>
+                      <td style={tdStyle as CSSProperties}>{trackNo}</td>
+                      <td style={tdStyle as CSSProperties}>
+                        {betId} {current && "Current"} {nextDay && "Next Day"}
+                      </td>
+                      <td style={tdStyle as CSSProperties}>{multiplier}</td>
+                      <td style={tdStyle as CSSProperties}>{betAmt}</td>
+                      <td style={tdStyle as CSSProperties}>
+                        {estimatedDrawTime}
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <div>
+                <span>
+                  Total track <strong>{trackData.trackInfo.totalDraws} </strong>
+                  draw(s)
+                </span>
+                <span style={{ marginLeft: 20 }}>
+                  Total.
+                  <strong>
+                    {bet.totalBets * trackData.trackInfo.totalDraws}{" "}
+                  </strong>
+                  bet(s)
+                </span>
+              </div>
+              <div>
+                <span>
+                  Total Amt.
+                  <strong>{trackData.trackInfo.totalBetAmt}</strong>
+                </span>
+              </div>
+              <div>
+                <span>
+                  Balance:
+                  <strong>0</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+export default memo(Track);
+
+const tableStyle = {
+  borderCollapse: "collapse",
+  width: "100%",
+  border: "1px solid #ddd",
+};
+
+const thStyle = {
+  backgroundColor: "#f2f2f2",
+  color: "#333",
+  padding: "12px",
+  borderBottom: "1px solid #ddd",
+  textAlign: "center",
+};
+
+const tdStyle = {
+  padding: "12px",
+  borderBottom: "1px solid #ddd",
+  textAlign: "center",
+};
