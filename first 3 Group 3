@@ -1,0 +1,1 @@
+getNumCombinations(firstArray.length, 2) * 2
