@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from 'react';
+
+function BadgeList() {
+  const [badges, setBadges] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    // Fetch initial data when the component mounts
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Add scroll event listener when the component mounts
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      // Clean up the scroll event listener when the component unmounts
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      // Fetch data from an API using the appropriate endpoint and parameters
+      const response = await fetch(`/api/badges?page=${page}&limit=20`);
+      const data = await response.json();
+      // Update the badges state with the newly fetched data
+      setBadges(prevBadges => [...prevBadges, ...data]);
+      setPage(prevPage => prevPage + 1);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleScroll = () => {
+    // Check if the user has reached the bottom of the page
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      // Fetch more data if there are no ongoing loading operations
+      if (!isLoading) {
+        fetchData();
+      }
+    }
+  };
+
+  return (
+    <div>
+      {/* Render the badges */}
+      {badges.map(badge => (
+        <Badge key={badge.id} badge={badge} />
+      ))}
+      {/* Render a loading indicator while data is being fetched */}
+      {isLoading && <div>Loading...</div>}
+    </div>
+  );
+}
+
+export default BadgeList;
