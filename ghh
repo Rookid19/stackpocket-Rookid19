@@ -1,0 +1,20 @@
+ try {
+    const response = await axios.post(bet_now_url, bet_data, config);
+    console.log(response);
+    if (response.data.type === "error") {
+      console.log(response.data.message);
+      SetResponse(response.data);
+      return;
+    }else{
+      console.log(response.data.message);
+      SetResponse(response.data);
+    }
+    // SetResponse(response.data);
+
+    dispatch({
+      type: ACTION_TYPES.CLEAR_ALL_ROWS,
+      payload: reducerSelectionsArray([])
+    });
+    getBalance(setBallance);
+
+  }
