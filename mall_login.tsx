@@ -98,11 +98,11 @@ const Login = (props: Props) => {
               textAlign: "center",
               fontSize: 19,
               fontWeight: "bolder",
-              backgroundColor :email.length === 0 ? "#cccccc" : null
+              backgroundColor :email.length === 0 || password.length === 0 ? "#cccccc" : null
             } as React.CSSProperties}
             text={"Log in"}
             type={"outline"}
-            disabled={email.length === 0}
+            disabled={email.length === 0 || password.length === 0}
           />
         </div>
         <div className={styles.registerxx}>
