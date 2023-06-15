@@ -1,0 +1,135 @@
+import { Errors, LoginType, RegisterType } from "@/interfaces/auth";
+
+// JS
+export function ValidateLogin(values: LoginType) {
+  let errors: Partial<Errors> = {};
+
+  //password validation
+  let password = values.password.trim();
+  let email = values.email.trim();
+
+  if (!password) {
+    errors.passwordRequired = "Password is required";
+  }
+  if (!email) {
+    errors.email = "Email is required";
+  }
+
+  return errors;
+}
+
+export function ValidateRegister(values: RegisterType) {
+  let errors: Partial<Errors> = {};
+
+  //password validation
+  let password = values.password.trim();
+  let confirmPassword = values.confirmPassword!.trim();
+  let email = values.email!.trim();
+
+  if (!password) {
+    errors.passwordRequired = "Password is required";
+  } else if (password.length < 8) {
+    errors.passwordLength = "Password must be at least 8 characters";
+  }
+
+  //confirm password validation
+  if (password !== confirmPassword) {
+    errors.confirmPassword = "Password doesn't match";
+  }
+
+  // special character
+  if (
+    !/^(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹]).*$/.test(values.password)
+  ) {
+    errors.passwordSpecialChar =
+      "Password must contain at least one special symbol";
+  }
+
+  if (!/^(?=.*[A-Z])(?=.*[a-z]).*$/.test(values.password)) {
+    errors.passwordCaseSensitive =
+      "Password must contain at least one uppercase and lowercase letter";
+  }
+
+  //must contain at least one number
+  if (!/^(?=.*[0-9]).*$/.test(values.password)) {
+    errors.passwordNumber = "Password must contain at least one number";
+  }
+
+  //email validation`
+  if (!email.trim()) {
+    errors.email = "Email is required";
+  } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+    errors.email = "Email address is invalid";
+  }
+
+  //user name validation
+  if (!values.username.trim()) {
+    errors.username = "Username is required";
+  } else if (values.username.length < 5) {
+    errors.username = "Username must be at least 5 characters";
+  }
+
+  if(!/^[A-Za-z][A-Za-z0-9_]*$/.test(values.username)) {
+    errors.username = "Username must contain only letters, numbers and underscore and must start with a letter";
+  }
+
+  return errors;
+}
+
+
+// PHP
+
+function validateRegister($values) {
+  $errors = [];
+
+  // Password validation
+  $password = trim($values['password']);
+  $confirmPassword = trim($values['confirmPassword']);
+  $email = trim($values['email']);
+
+  if (empty($password)) {
+    $errors['passwordRequired'] = "Password is required";
+  } else if (strlen($password) < 8) {
+    $errors['passwordLength'] = "Password must be at least 8 characters";
+  }
+
+  // Confirm password validation
+  if ($password !== $confirmPassword) {
+    $errors['confirmPassword'] = "Password doesn't match";
+  }
+
+  // Special character
+  if (!preg_match('/^(?=.*[~`!@#$%^&*()--+={}[\]|\\\\:;"\'<>,.?\/_₹]).*$/', $values['password'])) {
+    $errors['passwordSpecialChar'] = "Password must contain at least one special symbol";
+  }
+
+  if (!preg_match('/^(?=.*[A-Z])(?=.*[a-z]).*$/', $values['password'])) {
+    $errors['passwordCaseSensitive'] = "Password must contain at least one uppercase and lowercase letter";
+  }
+
+  // Must contain at least one number
+  if (!preg_match('/^(?=.*[0-9]).*$/', $values['password'])) {
+    $errors['passwordNumber'] = "Password must contain at least one number";
+  }
+
+  // Email validation
+  if (empty($email)) {
+    $errors['email'] = "Email is required";
+  } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = "Email address is invalid";
+  }
+
+  // Username validation
+  $username = trim($values['username']);
+  if (empty($username)) {
+    $errors['username'] = "Username is required";
+  } else if (strlen($username) < 5) {
+    $errors['username'] = "Username must be at least 5 characters";
+  }
+
+  if (!preg_match('/^[A-Za-z][A-Za-z0-9_]*$/', $username)) {
+    $errors['username'] = "Username must contain only letters, numbers, and underscores and must start with a letter";
+  }
+
+  return $errors;
+}
