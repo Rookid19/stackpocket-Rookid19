@@ -1,0 +1,200 @@
+import React, { use, useEffect, useState } from "react";
+import styles from "./page.module.css";
+import { BsArrowLeftShort } from "react-icons/bs";
+import {
+  MdPhotoCamera,
+  MdMoreVert,
+  MdOutlineNotificationAdd,
+} from "react-icons/md";
+import { useSession } from "next-auth/react";
+import Unauthorized from "@/components/Unauthorized/index";
+import Avatar from "@/components/Avatar/Avatar";
+import face from "@/public/assets/face.png";
+import Products from "./Products";
+import Store from "./Store";
+import Reviews from "./Review";
+import { GrAdd } from "react-icons/gr";
+import UseModal from "@/components/clientComponents/Modal/Model";
+import Edit from "@/components/EditProfile/edit";
+import { useSelector } from "react-redux";
+import { userData } from "@/slices/userSlice";
+import { useRouter } from "next/router";
+import { IoCallOutline } from "react-icons/io5";
+
+const Tabs = ["Product", "Store", "Reviews"];
+
+function ProfilePage() {
+  const { data: session } = useSession();
+  const [tab, setTab] = React.useState(Tabs[0]);
+  const [open, setOpen] = React.useState(false);
+  const [isedited, setIsEdited] = React.useState(false);
+  const [isrev, setIsrev] = React.useState("");
+  const [products, setProducts] = React.useState([]);
+  const [store, setStore] = React.useState([]);
+  const [review, setReview] = React.useState([]);
+  const [rating, setRating] = useState(3);
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  console.log("xid:", store);
+
+  const user = useSelector(userData);
+
+  useEffect(() => {
+    (async () => {
+      const data = await fetch(
+        `http://localhost:3000/api/merchant/${id && id}`
+      );
+      const res = await data.json();
+      console.log("res:", res);
+      setProducts(res.products);
+      setStore(res.stores);
+      setReview(res.review);
+    })();
+  }, [id]);
+
+  const TapMap = {
+    Product: <Products data={products && products} />,
+    Store: <Store data={store && store} />,
+    Reviews: <Reviews />,
+  };
+
+
+  const starStyle = {
+    color: 'gray',
+    fontSize: '24px',
+    cursor: 'pointer',
+  };
+
+  const selectedStarStyle = {
+    color: 'gold',
+    fontSize: '24px',
+    cursor: 'pointer',
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.headerNav}>
+          {isedited ? (
+            <>
+              <div
+                onClick={() => setIsEdited(!isedited)}
+                className={styles.headerNavIcon}
+              >
+                <BsArrowLeftShort
+                  style={{ marginTop: 9 }}
+                  size={30}
+                  color="white"
+                />
+              </div>
+              <div className={styles.headerNavTxt}>aframson77@gmail.com</div>
+            </>
+          ) : (
+            <>
+              <div
+                onClick={() => setIsEdited(!isedited)}
+                className={styles.headerNavIcon}
+              >
+                <BsArrowLeftShort
+                  style={{ marginTop: 9 }}
+                  size={30}
+                  color="white"
+                />
+              </div>
+            </>
+          )}
+        </div>
+        <div
+          style={{ alignItems: "center", textAlign: "center", height: 200 }}
+          className={styles.headerNavs}
+        >
+          <input
+            style={{ display: "none" }}
+            id="file-input"
+            type="file"
+            className={styles.input}
+          />
+        </div>
+      </div>
+
+      <div className={styles.body_c}>
+        <div className={styles.mainimage}>
+          <Avatar size={100} image={face} />
+        </div>
+
+        <div className={styles.mainname}>
+          <div className={styles.flow}>
+            <div className={styles.bname}>Richard Obiri</div>
+            <div className={styles.goop}>
+              <button className={styles.buttx}>
+                <IoCallOutline color="#c05600" size={25} />
+              </button>
+              <button className={styles.buttx}>
+                <MdOutlineNotificationAdd color="#c05600" size={25} />
+              </button>
+              {/* <button  className={styles.buttx}>Follow</button> */}
+              <button style={{ marginTop: -10 }} className={styles.butt}>
+                Send a Message
+              </button>
+            </div>
+          </div>
+          <div className={styles.vert}>
+            <div>
+              <div className={styles.buser}>@aframson77@gmail.com</div>
+              <div className={styles.mainnameTxt}>Location</div>
+            </div>
+          </div>
+
+          <div className={styles.verty}>
+            <div className={styles.rating}>
+              {Array(5)
+                .fill()
+                .map((_, index) => (
+                  <span
+                    key={index}
+                    style={index < rating ? selectedStarStyle : starStyle}
+                    onClick={() => setRating(index + 1)}
+                  >
+                    &#9733;
+                  </span>
+                ))}
+            </div>
+            <input
+              onChange={(e) => setIsrev(e.target.value)}
+              className={styles.inpw}
+              type="text"
+              placeholder="Write a review"
+            />
+            {isrev ? (
+              <button onClick={() => setIsrev("")} className={styles.butt}>
+                Submit
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div className={styles.tabbox}>
+            <div className={styles.tab}>
+              {Tabs.map((item, index) => (
+                <div
+                  onClick={() => setTab(item)}
+                  style={{ background: tab === item ? "#FFF4E5" : "" }}
+                  key={index}
+                  className={styles.tab_main}
+                >
+                  <div className={styles.tabTxt}>{item}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={styles.tab_}>{TapMap[tab]}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ProfilePage;
