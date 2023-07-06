@@ -1,0 +1,82 @@
+{
+  "5D": {
+    "conv": {
+      "tabs": 5,
+      "data": [
+        { "label": "Big", "key": "B/S", "odds": "" },
+        { "label": "Small", "key": "B/S", "odds": "" },
+        { "label": "Odd", "key": "O/E", "odds": "" },
+        { "label": "Even", "key": "O/E", "odds": "" },
+        { "label": "Prime", "key": "P/C", "odds": "" },
+        { "label": "Composite", "key": "P/C", "odds": "" }
+      ]
+    },
+    "all_kinds": {
+        "tabs": 0,
+        "length":5,
+        "Sum of Dragon/Tiger/Tie":{
+            "length":1,
+            "data": [
+                { "label": "Big", "key": "B/S", "odds": "" },
+                { "label": "Small", "key": "B/S", "odds": "" },
+                { "label": "Odd", "key": "O/E", "odds": "" },
+                { "label": "Even", "key": "O/E", "odds": "" },
+                { "label": "Dragon", "key": "D/T", "odds": "" },
+                { "label": "Tiger", "key": "D/T", "odds": "" },
+                { "label": "Tie", "key": "T", "odds": "" }
+            ]
+        },
+        "Fixed Place":{
+            "length":5,
+            "data":[
+                { "label": "Big", "key": "B/S", "odds": "" },
+                { "label": "Small", "key": "B/S", "odds": "" },
+                { "label": "Odd", "key": "O/E", "odds": "" },
+                { "label": "Even", "key": "O/E", "odds": "" },
+                { "label": "Prime", "key": "P/C", "odds": "" },
+                { "label": "Composite", "key": "P/C", "odds": "" },
+                { "label": "0", "key":"Fixed Place", "odds": "" },
+                { "label": "1", "key":"Fixed Place", "odds": "" },
+                { "label": "2", "key":"Fixed Place", "odds": "" },
+                { "label": "3", "key":"Fixed Place", "odds": "" },
+                { "label": "4", "key":"Fixed Place", "odds": "" },
+                { "label": "5", "key":"Fixed Place", "odds": "" },
+                { "label": "6", "key":"Fixed Place", "odds": "" },
+                { "label": "7", "key":"Fixed Place", "odds": "" },
+                { "label": "8", "key":"Fixed Place", "odds": "" },
+                { "label": "9", "key":"Fixed Place", "odds": "" }
+            ]
+        },
+        "First3":{
+            "length":1,
+            "data":[
+                {"label": "TOAK", "key": "TOAK", "odds": "" },
+                {"label": "Streak", "key": "Streak", "odds": "" },
+                {"label": "Pair", "key": "Pair", "odds": "" },
+                {"label": "Half Streak", "key": "Half Streak", "odds": "" },
+                {"label": "Mixed 6", "key": "Mixed 6", "odds": ""}
+            ]
+        },
+        "Middle3":{
+            "length":1,
+            "data":[
+                {"label": "TOAK", "key": "TOAK", "odds": "" },
+                {"label": "Streak", "key": "Streak", "odds": "" },
+                {"label": "Pair", "key": "Pair", "odds": "" },
+                {"label": "Half Streak", "key": "Half Streak", "odds": "" },
+                {"label": "Mixed 6", "key": "Mixed 6", "odds": ""}
+            ]
+        },
+        "Last3":{
+            "length":1,
+            "data":[
+                {"label": "TOAK", "key": "TOAK", "odds": "" },
+                {"label": "Streak", "key": "Streak", "odds": "" },
+                {"label": "Pair", "key": "Pair", "odds": "" },
+                {"label": "Half Streak", "key": "Half Streak", "odds": "" },
+                {"label": "Mixed 6", "key": "Mixed 6", "odds": ""}
+            ]
+        }
+    }
+  }
+}
