@@ -1,0 +1,39 @@
+  const Section1data = [
+    [
+      { name: "Quintuple", id: 19 },
+      { name: "Quadruple", id: 20 },
+      { name: "A Pair", id: 21 },
+      { name: "Triple Pair", id: 22 },
+      { name: "Streak", id: 23 },
+      { name: "Triple", id: 24 },
+      { name: "Two Pairs", id: 25 },
+      { name: "Lose Cards", id: 26 },
+    ],
+    [
+      { name: "Triple", id: 30, key: "Triple:F" },
+      { name: "Streak", id: 29, key: "Streak:F" },
+      { name: "A Pair", id: 28, key: "A Pair:F" },
+      { name: "Lose Cards", id: 32, key: "Lose Cards:F" },
+      { name: "Half Streak", id: 31, key: "Half Streak:F" },
+    ],
+    [
+      { name: "Triple", id: 35, key: "Triple:M" },
+      { name: "Streak", id: 34, key: "Streak:M" },
+      { name: "A Pair", id: 33, key: "A Pair:M" },
+      { name: "Lose Cards", id: 37, key: "Lose Cards:M" },
+      { name: "Half Streak", id: 36, key: "Half Streak:M" },
+    ],
+    [
+      { name: "Triple", id: 40, key: "Triple:L" },
+      { name: "Streak", id: 39, key: "Streak:L" },
+      { name: "A Pair", id: 38, key: "A Pair:L" },
+      { name: "Lose Cards", id: 42, key: "Lose Cards:L" },
+      { name: "Half Streak", id: 41, key: "Half Streak:L" },
+    ],
+    [
+      { name: "Odd Odd", id: 43 },
+      { name: "Odd Even", id: 44 },
+      { name: "Even Odd", id: 45 },
+      { name: "Even Even", id: 46 },
+    ],
+  ];
