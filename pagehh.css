@@ -1,0 +1,355 @@
+.container {
+  /* border: 1px solid red; */
+  /* padding: 10px; */
+  background: #ffffff;
+  box-sizing: border-box;
+
+  /* position: absolute; */
+  /* width: 98%; */
+  /* margin-left: -5.5vw; */
+  /* margin-top: 4.5vh; */
+}
+.tre {
+  /* border: 1px solid; */
+  width: 100%;
+}
+.flow {
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+}
+.ccg {
+  font-weight: 500;
+}
+.uio {
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+}
+.overflow {
+  display: flex;
+  /* grid-template-columns: 1fr 0.5fr 0.5fr; */
+  justify-content: space-between;
+  /* border: 1px solid; */
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: rgb(0, 75, 155);
+}
+.flop {
+  display: flex;
+  box-sizing: border-box;
+  /* border: 1px solid; */
+  gap: 10px;
+}
+.all {
+  /* border: 1px solid rgb(218, 218, 218);
+   */
+  border: none;
+  padding: 10px;
+  height: 33px;
+  border-radius: 5px;
+  color: rgb(255, 136, 0);
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100px;
+  margin-top: 24px;
+}
+.gopy {
+  display: flex;
+  gap: 15px;
+  height: fit-content;
+  /* border: 1px solid; */
+  margin-top: 22px;
+}
+.borp1 {
+  width: 120px;
+  height: 35px;
+  border: 2px solid white;
+  border-radius: 5px;
+  background: none;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.borp2 {
+  cursor: pointer;
+  width: 120px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background: rgb(0, 119, 255);
+  font-weight: bold;
+  color: #ffffff;
+}
+.glop {
+  width: 110px;
+  display: flex;
+  /* border: 1px solid; */
+  gap: 10px;
+  height: fit-content;
+  padding: 5px;
+  margin: 5px;
+  box-sizing: border-box;
+}
+.kju {
+  font-size: 12px;
+  font-weight: 900;
+  text-wrap: nowrap;
+  color: #e77000;
+}
+.contain {
+  /* background-color: rgb(187, 45, 45); */
+  /* padding: 5px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  border-radius: 10px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #e3e3e3;
+  margin-top: 10px;
+}
+.dashes {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 28.5vw;
+  height: 100%;
+  /* border: 1px solid; */
+  /* padding-left: 15px; */
+}
+.modal_container{
+  color: #ffffff;
+}
+
+.nv {
+  font-weight: 500;
+  /* border: 1px solid; */
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.form {
+  font-size: 14px;
+  font-weight: bold;
+}
+.places {
+  font-size: 14px;
+  font-weight: bold;
+}
+.head {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  /* font-weight: 500; */
+  font-size: 13px;
+  box-sizing: border-box;
+}
+.drt {
+  color: red;
+  /* font-weight: bold; */
+}
+.drtx {
+  color: blue;
+  /* font-weight: bold; */
+}
+.grew {
+  display: flex;
+  /* border: 1px solid; */
+  justify-content: space-between;
+}
+.derivedRoad {
+  display: flex;
+  /* justify-content: space-between; */
+  width: 100px;
+}
+.jkuyt {
+  /* give a nice background color */
+  width: 198px;
+  user-select: none;
+  height: 120px;
+  /* margin-left: 10px; */
+  /* background-color: #67c6c7; */
+  /* border: 1px solid #5972ee; */
+  border-radius: 2px;
+  padding: 10px 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  background-color: #eef6ff;
+  /* align-items: center; */
+}
+.jgddwq {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100px;
+  justify-content: start;
+  /* gap: 5px; */
+  /* margin-top: 30px; */
+}
+.jgddwqs {
+  /* padding: 10px; */
+  border: none;
+  border-radius: 7px;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  background: none;
+  /* margin-bottom: 10px; */
+  cursor: pointer;
+  /* border: 1px solid; */
+  margin-top: 5px;
+  /* background-color: #e6f2ff; */
+}
+.jgddwqs:hover {
+  /* background-color: #007bff; */
+}
+.inpo {
+  width: 200%;
+  height: 15px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  padding: 6px;
+  border: 1px solid rgb(182, 182, 182);
+  outline-color: rgb(255, 136, 0);
+  /* color: white; */
+  margin-top: 1px;
+  padding: 10px;
+}
+.nnn {
+  width: 50px;
+  /* border: 1px solid; */
+  font-size: 10px;
+  display: flex;
+}
+#nn {
+  /* font-weight: 900; */
+  /* border: 1px solid green; */
+  width: 50px;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  /* margin-top: 4px; */
+}
+#oo {
+  color: orange;
+  font-weight: 900;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.grew2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  /* border: 1px solid; */
+  /* width: 2vw; */
+}
+
+.derivedRoadColors {
+  margin: 0 1px;
+  /* width: 100px; */
+  box-sizing: unset;
+  /* border: 1px solid; */
+}
+
+.sectionOneHeader {
+  display: flex;
+  /* border: 1px solid; */
+  margin-left: -40px;
+}
+
+.derivedRoadSectionOne {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.buttonContainer {
+  display: flex;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Text color */
+  padding: 10px; /* Adjust padding as needed */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.buttonText {
+  flex: 1;
+  text-align: center;
+  align-self: center;
+}
+
+.buttonInputContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonInput {
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: center;
+  width: 100%;
+}
+
+.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+.flowmainbox {
+  /* border: 1px solid yellow; */
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  /* box-shadow: inset 0px 0px 10px 0px rgba(172, 172, 172, 0.75); */
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 200px;
+  box-sizing: border-box;
+}
+.graphWrapper {
+  /* border: 1px solid green; */
+  width: 100%;
+}
+.inbox_match {
+  /* border: 1px solid green; */
+  /* width: 110%; */
+  display: grid;
+  grid-template-columns: 1fr;
+  /* border:1px solid; */
+  padding: 5px;
+}
+.shiftdown {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+.flowise {
+  margin-top: 10px;
+  background-color: white;
+  height: 50vh;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .dashes {
+    width: 44vw;
+  }
+}
