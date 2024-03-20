@@ -1,0 +1,304 @@
+    {["5"].includes(lti) ? (
+          <div className={styles.lineox}>
+            {["1st", "2nd", "3rd"].map((items, index) => (
+              <div className={styles.lineo} key={index}>
+                <center className={styles.center}>
+                  <div className={styles.line}></div>
+                </center>
+                <div id={styles.boardnew} className={styles.board}>
+                  <div className={styles.tio}>{items}</div>
+                  {data?.["Fixed Place"]?.data.map((item: any, i: number) => (
+                    <button
+                      className={styles.boarditem}
+                      key={i}
+                      style={{
+                        border:
+                          (handleInputValues(
+                            items,
+                            item,
+                            multiplier,
+                            "color",
+                            typeof item.label === "number",
+                            data.names[1],
+                            twosideSelections,
+                            inputValues
+                          ) as string) !== null
+                            ? "1px solid #ED712E"
+                            : "none",
+                        backgroundColor: handleInputValues(
+                          items,
+                          item,
+                          multiplier,
+                          "color",
+                          typeof item.label === "number",
+                          data.names[1],
+                          twosideSelections,
+                          inputValues
+                        ) as string,
+                      }}
+                      id={styles.miniboarditem}
+                      onClick={(e) => {
+                        // alert("ji")
+                        // console.log("big combo", item)
+                        setInputValues(
+                          handleInputValues(
+                            items,
+                            item,
+                            multiplier,
+                            "setInputValues",
+                            typeof item.label === "number",
+                            data.names[1],
+                            twosideSelections,
+                            inputValues
+                          )
+                        );
+                        let amt = handleInputValues(
+                          items,
+                          item,
+                          multiplier,
+                          "emptyString",
+                          typeof item.label === "number",
+                          data.names[1],
+                          twosideSelections,
+                          inputValues
+                        );
+
+                        twosideSelectionsDispatch({
+                          type:
+                            typeof item.label === "number"
+                              ? TWO_SIDES_ACTION_TYPES.REAL_NUMBERS
+                              : TWO_SIDES_ACTION_TYPES.ELEMENTARY_NUMBERS,
+                          payload: {
+                            rowId: item.key,
+                            userSelection: item.label,
+                            position: items,
+                            game_name: data.names[1],
+                            amount: amt,
+                            label_id: item.labelid,
+                            game_id: item.gameid,
+                          },
+                        });
+                      }}
+                    >
+                      {typeof item.label === "number" ? (
+                        <div id={styles.circle} className={styles.name}>
+                          <div className={styles.hide}></div>
+                          <div className={styles.number}>{item.label}</div>
+                        </div>
+                      ) : (
+                        <span
+                          style={{ fontSize: 11, border: "1px" }}
+                          className={`${styles.name} ${styles.nametxt}`}
+                        >
+                          {item.label}
+                        </span>
+                      )}
+                      <span className={styles.oddsxx}>
+                        {isEmpty(session?.user?.name?.rebate)
+                          ? 0
+                          : calculatedUserPrize(
+                              item.odds,
+                              1,
+                              session?.user?.name?.rebate
+                            )}
+                      </span>
+                      <input
+                        style={{ width: 50 }}
+                        id={`${styles.input} ${
+                          isNaN(item.label)
+                            ? removeWhiteSpaces(item.label)
+                            : `_${removeWhiteSpaces(item.label)}`
+                        }-${item.key
+                          .toString()
+                          .replace(/\s/g, "")}${items} kills`}
+                        className={styles.input}
+                        type="text"
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => {
+                          handleChange(
+                            e,
+                            item,
+                            items,
+                            data?.names[1],
+                            typeof item.label === "number"
+                              ? TWO_SIDES_ACTION_TYPES.REAL_NUMBERS
+                              : TWO_SIDES_ACTION_TYPES.ELEMENTARY_NUMBERS,
+                            twosideSelectionsDispatch,
+                            setInputValues
+                          );
+                        }}
+                        value={
+                          typeof item.label === "number"
+                            ? Object.values(twosideSelections).length > 0 &&
+                              twosideSelections?.[data.names[1]]?.[
+                                items
+                              ]?.hasOwnProperty(item?.key) &&
+                              twosideSelections?.[data.names[1]]?.[items]?.[
+                                item.key
+                              ]?.hasOwnProperty(item?.label)
+                              ? inputValues[
+                                  `${
+                                    isNaN(item.label)
+                                      ? removeWhiteSpaces(item.label)
+                                      : `_${item.label
+                                          .toString()
+                                          .replace(/\s/g, "")}`
+                                  }-${item.key
+                                    .toString()
+                                    .replace(/\s/g, "")}${items}`
+                                ]
+                              : ""
+                            : Object.values(twosideSelections).length > 0 &&
+                              twosideSelections?.[data.names[1]]?.[
+                                items
+                              ]?.hasOwnProperty(item?.key) &&
+                              twosideSelections[data.names[1]]?.[items]?.[
+                                item.key
+                              ]?.includes(item?.label)
+                            ? inputValues[
+                                `${
+                                  isNaN(item.label)
+                                    ? removeWhiteSpaces(item.label)
+                                    : `_${item.label
+                                        .toString()
+                                        .replace(/\s/g, "")}`
+                                }-${item.key
+                                  .toString()
+                                  .replace(/\s/g, "")}${items}`
+                              ]
+                            : ""
+                        }
+                      />
+                    </button>
+                  ))}
+                </div>
+                <center className={styles.center}>
+                  <div className={styles.line}></div>
+                </center>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className={styles.conv}>
+            <div className={styles.tio}>{data?.names[0]}</div>
+            <div className={styles.board}>
+              {data?.[data.names[0]]?.data.map((item: any, i: number) => {
+                let name = removeWhiteSpaces(data.names[0]);
+                let label: any = removeWhiteSpaces(item.label);
+                let key = removeWhiteSpaces(item.key);
+                return (
+                  <div key={i} className={styles.bordItemWrapper}>
+                    <div
+                      className={styles.boarditem}
+                      onClick={(e) => {
+                        console.log("big combo", item);
+                        setInputValues(
+                          handleInputValues(
+                            "sum",
+                            item,
+                            multiplier,
+                            "setInputValues",
+                            false,
+                            name,
+                            twosideSelections,
+                            inputValues
+                          )
+                        );
+                        let amt = handleInputValues(
+                          "sum",
+                          item,
+                          multiplier,
+                          "emptyString",
+                          false,
+                          name,
+                          twosideSelections,
+                          inputValues
+                        );
+
+                        twosideSelectionsDispatch({
+                          type: TWO_SIDES_ACTION_TYPES.ELEMENTARY_NUMBERS,
+                          payload: {
+                            rowId: item.key,
+                            userSelection: item.label,
+                            position: "sum",
+                            game_name: name,
+                            amount: amt,
+                            label_id: item.labelid,
+                            game_id: item.gameid,
+                          },
+                        });
+                      }}
+                      style={{
+                        backgroundColor: handleInputValues(
+                          "sum",
+                          item,
+                          multiplier,
+                          "color",
+                          false,
+                          name,
+                          twosideSelections,
+                          inputValues
+                        ) as string,
+                      }}
+                    >
+                      <div className={styles.name}>{item.label}</div>
+                      <div className={styles.odds}>
+                        {isEmpty(session?.user?.name?.rebate)
+                          ? 0
+                          : calculatedUserPrize(
+                              item.odds,
+                              1,
+                              session?.user?.name?.rebate
+                            )}
+                      </div>
+                      <div className={styles.slide}>
+                        <input
+                          // className={styles.inp}
+                          type="text"
+                          placeholder=""
+                          className={`${styles.input}  ${
+                            isNaN(label) ? label : `_${label}`
+                          }-${key}${"sum"} kills`}
+                          onClick={(e) => e.stopPropagation()}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            handleChange(
+                              e,
+                              item,
+                              "sum",
+                              name,
+                              TWO_SIDES_ACTION_TYPES.ELEMENTARY_NUMBERS,
+                              twosideSelectionsDispatch,
+                              setInputValues
+                            );
+                          }}
+                          value={
+                            Object.values(twosideSelections).length > 0 &&
+                            twosideSelections?.[name]?.["sum"]?.hasOwnProperty(
+                              item?.key
+                            ) &&
+                            twosideSelections?.[name]?.["sum"]?.[
+                              item?.key
+                            ]?.includes(item?.label)
+                              ? inputValues[
+                                  `${
+                                    isNaN(item.label) ? label : `_${label}`
+                                  }-${key}${"sum"}`
+                                ]
+                              : ""
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {/* {firstConvo.map((item,index)=>(
+    <div className={styles.boarditem} key={index}>
+      <div className={styles.name}>{item.name}</div>
+      <div className={styles.odds}>{item.odds}</div>
+      <input className={styles.input} type="text" />
+    </div>
+  ))} */}
+            </div>
+          </div>
+        )}
